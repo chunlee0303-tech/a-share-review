@@ -1,67 +1,48 @@
-- name: Send Email via Gmail
+name: Send Daily A-Share Review
+
+on:
+  schedule:
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+
+jobs:
+  send-report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Send Email via Gmail
         env:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_PASS: ${{ secrets.GMAIL_PASS }}
         run: |
-          python - << 'EOF'
-          import os
-          import smtplib
+          python3 -c "
+          import os, smtplib
           from email.mime.text import MIMEText
           from email.mime.multipart import MIMEMultipart
 
           sender = os.environ['GMAIL_USER']
           password = os.environ['GMAIL_PASS']
-          receiver = sender
-
-          # 读取 index.html
+          
           with open('index.html', 'r', encoding='utf-8') as f:
               html_content = f.read()
-
-          # 针对邮件客户端进行 HTML 精简与优化（去除头部、按钮、表单等网页交互元素，内联核心样式）
-          # 这里为您注入一个适配邮件的高颜值包装样式
-          email_wrapper = f"""
-          <!DOCTYPE html>
-          <html>
-          <head>
-          <meta charset="UTF-8">
-          <style>
-            body {{ background-color: #f3f4f6; margin: 0; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", Arial, sans-serif; color: #1f2937; }}
-            .email-container {{ max-width: 700px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #e5e7eb; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }}
-            .header {{ background: linear-gradient(135deg, #0b1936 0%, #17366e 100%); color: #ffffff; padding: 24px; text-align: left; }}
-            .content {{ padding: 24px; }}
-            /* 过滤掉邮件中不需要显示的网页端交互按钮与表单 */
-            .no-print, button, form, script {{ display: none !important; }}
-          </style>
-          </head>
-          <body>
-            <div class="email-container">
-              <div class="header">
-                <h2 style="margin: 0 0 8px 0; font-size: 20px;">📊 A股每日复盘报告自动化推送</h2>
-                <p style="margin: 0; font-size: 12px; color: #cbd5e1;">收盘快照 · 准时送达</p>
-              </div>
-              <div class="content">
-                {html_content}
-              </div>
-            </div>
-          </body>
-          </html>
-          """
 
           msg = MIMEMultipart('alternative')
           msg['Subject'] = '【A股每日复盘报告】16:00 准时送达'
           msg['From'] = sender
-          msg['To'] = receiver
+          msg['To'] = sender
 
-          part = MIMEText(email_wrapper, 'html', 'utf-8')
-          msg.attach(part)
+          msg.attach(MIMEText(html_content, 'html', 'utf-8'))
 
-          try:
-              server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-              server.login(sender, password)
-              server.sendmail(sender, receiver, msg.as_string())
-              server.quit()
-              print("高颜值邮件发送成功！")
-          except Exception as e:
-              print(f"发送失败: {e}")
-              exit(1)
-          EOF
+          server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+          server.login(sender, password)
+          server.sendmail(sender, sender, msg.as_string())
+          server.quit()
+          print('邮件发送成功！')
+          "
