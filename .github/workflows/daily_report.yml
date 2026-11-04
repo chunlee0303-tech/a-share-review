@@ -1,0 +1,57 @@
+name: Send Daily A-Share Review
+
+on:
+  schedule:
+    # 每天北京时间 16:00 运行（对应 UTC 时间 08:00）
+    - cron: '0 8 * * *'
+  workflow_dispatch: # 支持手动触发
+
+jobs:
+  send-report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Send Email via Gmail
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_PASS: ${{ secrets.GMAIL_PASS }}
+        run: |
+          python - << 'EOF'
+          import os
+          import smtplib
+          from email.mime.text import MIMEText
+          from email.mime.multipart import MIMEMultipart
+
+          sender = os.environ['GMAIL_USER']
+          password = os.environ['GMAIL_PASS']
+          receiver = sender  # 发给自己
+
+          # 读取 index.html 内容作为邮件正文
+          with open('index.html', 'r', encoding='utf-8') as f:
+              html_content = f.read()
+
+          msg = MIMEMultipart('alternative')
+          msg['Subject'] = '【A股每日复盘报告】16:00 自动推送'
+          msg['From'] = sender
+          msg['To'] = receiver
+
+          part = MIMEText(html_content, 'html', 'utf-8')
+          msg.attach(part)
+
+          try:
+              server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+              server.login(sender, password)
+              server.sendmail(sender, receiver, msg.as_string())
+              server.quit()
+              print("邮件发送成功！")
+          except Exception as e:
+              print(f"发送失败: {e}")
+              exit(1)
+          EOF
