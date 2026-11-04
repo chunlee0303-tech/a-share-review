@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A股每日复盘报告 · 2026-11-04</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <style>
+    body {
+      background-color: #f3f4f6;
+      color: #1f2937;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .header-banner {
+      background: linear-gradient(135deg, #0b1936 0%, #102a56 60%, #17366e 100%);
+    }
+    .section-card {
+      background: #ffffff;
+      border-radius: 14px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    }
+    .sub-card {
+      background: #ffffff;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+    }
+    .inner-box {
+      background: #fcfcfd;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+    }
+    .num-badge {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background-color: #1d4ed8;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .callout-amber {
+      background-color: #fffbeb;
+      border-left: 4px solid #d97706;
+      border-radius: 6px;
+    }
+    .callout-green {
+      background-color: #f0fdf4;
+      border-left: 4px solid #16a34a;
+      border-radius: 6px;
+    }
+    .strategy-banner {
+      background: linear-gradient(135deg, #c25e00 0%, #b45309 100%);
+      border-radius: 12px;
+      color: #ffffff;
+    }
+    .text-up {
+      color: #dc2626;
+    }
+    .text-down {
+      color: #16a34a;
+    }
+    .text-amber-title {
+      color: #b45309;
+    }
+    .tag-blue {
+      background-color: #dbeafe;
+      color: #1d4ed8;
+    }
+    .tag-red {
+      background-color: #fee2e2;
+      color: #b91c1c;
+    }
+    .tag-amber {
+      background-color: #fef3c7;
+      color: #b45309;
+    }
+    .tag-gray {
+      background-color: #f3f4f6;
+      color: #4b5563;
+    }
+    @media print {
+      .no-print { display: none !important; }
+      body { background-color: #f3f4f6 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body class="pb-12 antialiased">
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 hidden transition-all duration-300">
+    <div class="bg-slate-900 text-white px-4 py-2.5 rounded-lg shadow-lg text-xs font-medium flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+      <span id="toast-msg">已复制复盘摘要</span>
+    </div>
+  </div>
+
+  <!-- Top Navy Banner (Matches Screenshot 1 Header) -->
+  <header class="header-banner text-white pt-7 pb-10 px-4 sm:px-8">
+    <div class="max-w-5xl mx-auto">
+      <div class="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">A股每日复盘报告</h1>
+          <p class="text-xs sm:text-sm text-slate-300 mt-2">
+            复盘日期：2026年11月4日（周三） · 收盘快照 15:00 · 数据源：交易所行情（沪深/东方财富Choice/Wind） · 数据可靠度：9.5/10分
+          </p>
+        </div>
+        <div class="flex items-center gap-2 no-print">
+          <button id="btn-copy-summary" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white/10 hover:bg-white/20 text-white border border-white/20 transition">
+            📋 复制复盘摘要
+          </button>
+          <button id="btn-print" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white/10 hover:bg-white/20 text-white border border-white/20 transition">
+            🖨️ 打印 / 导出PDF
+          </button>
+        </div>
+      </div>
+
+      <!-- Tomorrow Tone Pill -->
+      <div class="mt-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#fef3c7] text-[#b45309] font-bold text-xs sm:text-sm shadow-sm">
+        <span>📈 明日基调：主动进攻（回暖共振转加速 · 早盘逢分歧切入前排，勿追高潮）</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 -mt-5 space-y-5">
+
+    <!-- 1. 市场定调：主要指数与量能 -->
+    <section id="sec-step1" class="section-card p-5 sm:p-6">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-2.5">
+          <span class="num-badge">1</span>
+          <h2 class="text-base sm:text-lg font-bold text-gray-900">市场定调：主要指数与量能</h2>
+        </div>
+        <span class="px-2.5 py-1 rounded-full bg-gray-100 text-gray-500 text-xs font-medium">收盘快照 15:00 · 准确度 9.5/10</span>
+      </div>
+
+      <!-- 3 Index Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+        <div class="sub-card p-4">
+          <div class="text-xs text-gray-500">上证指数</div>
+          <div class="mt-1 flex items-baseline gap-2">
+            <span class="text-2xl font-extrabold text-up tracking-tight">3686.17</span>
+            <span class="text-sm font-bold text-up">+2.16%</span>
+          </div>
+          <p class="text-xs text-gray-600 mt-2 leading-relaxed">
+            全天成交 9532.65亿 · 放量光头阳线一举收复10日均线
+          </p>
+        </div>
+
+        <div class="sub-card p-4">
+          <div class="text-xs text-gray-500">深证成指</div>
+          <div class="mt-1 flex items-baseline gap-2">
+            <span class="text-2xl font-extrabold text-up tracking-tight">11335.69</span>
+            <span class="text-sm font-bold text-up">+4.22%</span>
+          </div>
+          <p class="text-xs text-gray-600 mt-2 leading-relaxed">
+            全天成交 10844.27亿 · 硬科技权重带动午后凌厉上攻
+          </p>
+        </div>
+
+        <div class="sub-card p-4">
+          <div class="text-xs text-gray-500">创业板指（科创50 +9.92%）</div>
+          <div class="mt-1 flex items-baseline gap-2">
+            <span class="text-2xl font-extrabold text-up tracking-tight">2544.73</span>
+            <span class="text-sm font-bold text-up">+6.40%</span>
+          </div>
+          <p class="text-xs text-gray-600 mt-2 leading-relaxed">
+            全天成交 5470.99亿 · 创2个多月最大单日涨幅，领涨全场
+          </p>
+        </div>
+      </div>
+
+      <!-- Volume Conclusion Bar -->
+      <div class="callout-amber px-4 py-3 mt-3.5 text-xs sm:text-sm text-gray-800 leading-relaxed">
+        <strong>量能结论：放量反攻。</strong>沪深两市全天成交20377亿元（含北交所2.05万亿，昨日17034亿），大幅放量3343亿元（+19.6%），时隔25个交易日重返2万亿上方；双创指数午后直线飙升，增量资金大规模进场。
+      </div>
+
+      <!-- Full Market Emotion Data (6 Cards) -->
+      <div class="mt-5">
+        <h3 class="text-xs sm:text-sm font-bold text-gray-800 mb-3">全市场情绪数据（收盘快照）</h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+          <div class="sub-card p-4">
+            <div class="text-xs text-gray-500">上涨 / 下跌 / 平盘</div>
+            <div class="text-xl font-extrabold mt-1 tracking-tight">
+              <span class="text-up">4732</span> / <span class="text-down">786</span> / <span class="text-gray-700">136</span>
+            </div>
+            <div class="text-xs text-up mt-1.5 font-medium">普涨格局，涨家数为跌家数 6.0 倍（沪深 4396/771/128）</div>
+          </div>
+
+          <div class="sub-card p-4">
+            <div class="text-xs text-gray-500">今日涨停</div>
+            <div class="text-xl font-extrabold text-up mt-1">
+              121 <span class="text-xs font-semibold">（昨52）</span>
+            </div>
+            <div class="text-xs text-up mt-1.5 font-medium">涨停家数翻倍激增 +132.7%（不含ST为118家）</div>
+          </div>
+
+          <div class="sub-card p-4">
+            <div class="text-xs text-gray-500">今日跌停</div>
+            <div class="text-xl font-extrabold text-down mt-1">
+              11 <span class="text-xs font-semibold">（非ST 10家）</span>
+            </div>
+            <div class="text-xs text-gray-600 mt-1.5">前期高位纯投机小票（食品/消费）补跌出清</div>
+          </div>
+
+          <div class="sub-card p-4">
+            <div class="text-xs text-gray-500">炸板率</div>
+            <div class="text-xl font-extrabold text-amber-title mt-1">
+              21.2%
+            </div>
+            <div class="text-xs text-gray-600 mt-1.5">炸板 32 / (32+121)，封板率 78.8% 封板意愿强</div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 mt-3.5">
+          <div class="sub-card p-4">
+            <div class="text-xs text-gray-500">连板最高板</div>
+            <div class="text-lg sm:text-xl font-extrabold text-up mt-1">
+              3板 <span class="text-base font-bold">闽发铝业(002578) 等6家</span>
+            </div>
+            <div class="text-xs text-gray-600 mt-1.5">
+              昨日最高板东方海洋(10天6板)、青岛食品(6板)今日断板大跌 → 高位旧周期退潮，3连板晋级6只（另桂林三金5天4板、金安国纪6天3板）
+            </div>
+          </div>
+
+          <div class="sub-card p-4">
+            <div class="text-xs text-gray-500">市场结构定性</div>
+            <div class="text-lg sm:text-xl font-extrabold text-gray-800 mt-1">
+              旧高标出清 + 硬科技全面反攻
+            </div>
+            <div class="text-xs text-gray-600 mt-1.5">
+              纯投机连板小票批量断板跌停，增量资金全面涌向20cm芯片半导体首板、AI算力硬件及大容量趋势龙头
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. 情绪周期判定 -->
+    <section id="sec-step2" class="section-card p-5 sm:p-6">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-2.5">
+          <span class="num-badge">2</span>
+          <h2 class="text-base sm:text-lg font-bold text-gray-900">情绪周期判定</h2>
+        </div>
+        <span class="px-2.5 py-1 rounded-full bg-gray-100 text-gray-500 text-xs font-medium">核心决策</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="sub-card p-4">
+          <div class="text-xs text-gray-500">涨停 121 / 跌停 11 · 最高板 3板（趋势5天4板） · 炸板率 21.2%</div>
+          <div class="text-lg sm:text-xl font-extrabold text-amber-title mt-1.5">
+            阶段判定：回暖转加速（高低切换共振）
+          </div>
+          <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">
+            昨日冰点（52家涨停）后今日午后指数与情绪同步放量爆发，旧周期投机高标补跌出清，硬科技新主线全线首板启动
+          </p>
+        </div>
+
+        <div class="sub-card p-4">
+          <div class="text-xs text-gray-500">对应操作策略</div>
+          <div class="text-lg sm:text-xl font-extrabold text-amber-title mt-1.5">
+            主动进攻（买分歧 · 控仓去弱留强）
+          </div>
+          <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">
+            坚决放弃旧周期高位断板小票，聚焦半导体芯片（1进2晋级确认）与AI算力容量核心，利用明早获利盘分歧回踩时介入前排
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. 主线资金复盘：涨停分类与持续性 -->
+    <section id="sec-step3" class="section-card p-5 sm:p-6">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-2.5">
+          <span class="num-badge">3</span>
+          <h2 class="text-base sm:text-lg font-bold text-gray-900">主线资金复盘：涨停分类与持续性</h2>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-1 rounded-full bg-gray-100 text-gray-500 text-xs font-medium">数据：交易所涨停池 / 21财经雷达 · 9.0/10分</span>
+        </div>
+      </div>
+
+      <!-- Sector Filter Pills (Interactive Filter) -->
+      <div class="flex items-center justify-between flex-wrap gap-2 mb-3">
+        <h3 class="text-xs sm:text-sm font-bold text-gray-800">今日涨停个股（121家）按行业/题材分类</h3>
+        <div class="flex flex-wrap gap-1.5 no-print" id="sector-filters">
+          <button data-sector="all" class="sector-pill px-2.5 py-1 rounded-md text-xs font-semibold bg-blue-600 text-white transition">全部行业</button>
+          <button data-sector="semi" class="sector-pill px-2.5 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition">半导体芯片 (20)</button>
+          <button data-sector="gold" class="sector-pill px-2.5 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition">贵金属 (9)</button>
+          <button data-sector="auto" class="sector-pill px-2.5 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition">汽车零部 (7)</button>
+          <button data-sector="ai" class="sector-pill px-2.5 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition">AI算力/元件 (6)</button>
+          <button data-sector="pharma" class="sector-pill px-2.5 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition">创新药/医疗 (5)</button>
+        </div>
+      </div>
+
+      <!-- Table 1: Sector Limit-Up Classification -->
+      <div class="overflow-x-auto border border-gray-200 rounded-lg">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="bg-gray-50 text-gray-500 border-b border-gray-200">
+              <th class="py-2.5 px-3.5 font-semibold w-28">行业/题材</th>
+              <th class="py-2.5 px-3 font-semibold w-16">家数</th>
+              <th class="py-2.5 px-3.5 font-semibold">代表个股（连板/首板明细）</th>
+              <th class="py-2.5 px-3.5 font-semibold w-36">结构判断</th>
+            </tr>
+          </thead>
+          <tbody id="sector-table-body" class="divide-y divide-gray-100">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Consecutive Board Ladder (连板梯队 K线核验后) -->
+      <div class="mt-5">
+        <h3 class="text-xs sm:text-sm font-bold text-gray-800 mb-2.5">连板梯队（K线核验后 · 连板股总数12只，晋级率40%）</h3>
+        <div class="flex flex-wrap gap-2.5">
+          <div class="sub-card px-3.5 py-2 text-xs">
+            <span class="font-bold text-up mr-1.5">趋势高标</span>
+            <span class="text-gray-800">桂林三金（5天4板）、闽发铝业（8天4板/3连板）、金安国纪（6天3板）、凯迪股份（6天3板）、冰山冷热（5天3板）、扬子新材（4天3板）</span>
+          </div>
+          <div class="sub-card px-3.5 py-2 text-xs">
+            <span class="font-bold text-up mr-1.5">3连板（6家）</span>
+            <span class="text-gray-800">闽发铝业、高争民爆、龙版传媒、紫竹高科、大晟文化、浙文影业</span>
+          </div>
+          <div class="sub-card px-3.5 py-2 text-xs">
+            <span class="font-bold text-up mr-1.5">2连板 / 3天2板</span>
+            <span class="text-gray-800">马钢股份、宝明科技、正帆科技（20cm）、德才股份 等6家</span>
+          </div>
+          <div class="sub-card px-3.5 py-2 text-xs w-full">
+            <span class="font-bold text-up mr-1.5">首板（106家）</span>
+            <span class="text-gray-800">拓荆科技(20cm)、江丰电子(20cm)、中科飞测(20cm)、华峰测控(20cm)、富创精密(20cm)、北方华创、通富微电、长电科技、山东黄金、山金国际、药明康德、凯莱英、沪电股份 等106家</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table 2: Continuous 2-3 Days Capital Directions -->
+      <div class="mt-5">
+        <h3 class="text-xs sm:text-sm font-bold text-gray-800 mb-2.5">连续2-3日有资金持续打入的重复上榜方向</h3>
+        <div class="overflow-x-auto border border-gray-200 rounded-lg">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="bg-gray-50 text-gray-500 border-b border-gray-200">
+                <th class="py-2.5 px-3.5 font-semibold">方向</th>
+                <th class="py-2.5 px-3.5 font-semibold">持续天数与资金动向</th>
+                <th class="py-2.5 px-3.5 font-semibold">核心个股</th>
+                <th class="py-2.5 px-3.5 font-semibold">龙头带队 or 一盘散沙</th>
+                <th class="py-2.5 px-3.5 font-semibold">高位加速 or 低位补涨</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+              <tr>
+                <td class="py-3 px-3.5 font-bold text-gray-900">半导体芯片</td>
+                <td class="py-3 px-3.5 text-gray-600">连续2天（昨回购催化→今20家涨停，存储净流入204亿）</td>
+                <td class="py-3 px-3.5 text-gray-800">拓荆科技1板、江丰电子1板、华峰测控1板、长鑫科技(+13.6%)</td>
+                <td class="py-3 px-3.5"><span class="px-2 py-0.5 rounded-full text-[11px] font-semibold whitespace-nowrap inline-block tag-blue">龙头带队</span></td>
+                <td class="py-3 px-3.5"><span class="px-2 py-0.5 rounded-full text-[11px] font-semibold whitespace-nowrap inline-block tag-red">低位强反转</span></td>
+              </tr>
+              <tr>
+                <td class="py-3 px-3.5 font-bold text-gray-900">AI算力 / PCB元件</td>
+                <td class="py-3 px-3.5 text-gray-600">连续3天（覆铜板满产涨价→今高标晋级+光模块暴拉）</td>
+                <td class="py-3 px-3.5 text-gray-800">金安国纪6天3板、沪电股份1板、新易盛(+13.3%)、中际旭创(+11.1%)</td>
+                <td class="py-3 px-3.5"><span class="px-2 py-0.5 rounded-full text-[11px] font-semibold whitespace-nowrap inline-block tag-blue">龙头带队</span></td>
+                <td class="py-3 px-3.5"><span class="px-2 py-0.5 rounded-full text-[11px] font-semibold whitespace-nowrap inline-block tag-amber">中位接力+趋势加速</span></td>
+              </tr>
+              <tr>
+                <td class="py-3 px-3.5 font-bold text-gray-900">贵金属 / 黄金</td>
+                <td class="py-3 px-3.5 text-gray-600">今日集中爆发（央行Q3购金同比+42%催化→9家首板）</td>
+                <td class="py-3 px-3.5 text-gray-800">晓程科技(20cm)1板、山东黄金1板、山金国际1板、湖南黄金1板</td>
+                <td class="py-3 px-3.5"><span class="px-2 py-0.5 rounded-full text-[11px] font-semibold whitespace-nowrap inline-block tag-blue">板块齐涨</span></td>
+                <td class="py-3 px-3.5"><span class="px-2 py-0.5 rounded-full text-[11px] font-semibold whitespace-nowrap inline-block tag-gray">低位补涨</span></td>
+              </tr>
+              <tr>
+                <td class="py-3 px-3.5 font-bold text-gray-900">创新药 / 医疗CXO</td>
+                <td class="py-3 px-3.5 text-gray-600">连续2天（高标穿越+三季报净利同比增51.7%→权重首板）</td>
+                <td class="py-3 px-3.5 text-gray-800">桂林三金5天4板、药明康德1板、凯莱英1板、昭衍新药1板</td>
+                <td class="py-3 px-3.5"><span class="px-2 py-0.5 rounded-full text-[11px] font-semibold whitespace-nowrap inline-block tag-blue">龙头带队</span></td>
+                <td class="py-3 px-3.5"><span class="px-2 py-0.5 rounded-full text-[11px] font-semibold whitespace-nowrap inline-block tag-amber">中位接力+底部修复</span></td>
+              </tr>
+              <tr>
+                <td class="py-3 px-3.5 font-bold text-gray-900">光伏铝材 / 专用设备</td>
+                <td class="py-3 px-3.5 text-gray-600">连续3天（局部高标晋级，但板块内部跟风分化）</td>
+                <td class="py-3 px-3.5 text-gray-800">闽发铝业3板(8天4板)、冰山冷热5天3板、永臻股份1板</td>
+                <td class="py-3 px-3.5"><span class="px-2 py-0.5 rounded-full text-[11px] font-semibold whitespace-nowrap inline-block tag-gray">弱带队</span></td>
+                <td class="py-3 px-3.5"><span class="px-2 py-0.5 rounded-full text-[11px] font-semibold whitespace-nowrap inline-block tag-amber">中位接力</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Mainline Conclusion Box (Green Left Border Card) -->
+      <div class="callout-green p-4 mt-5">
+        <div class="text-xs sm:text-sm font-bold text-gray-800 mb-2.5">主线结论：明日最有机会的 1–2 个方向 ——</div>
+        <div class="space-y-2">
+          <div class="bg-white border border-gray-200 rounded-lg px-3.5 py-2.5 flex flex-wrap items-center gap-2 text-xs sm:text-sm">
+            <span class="w-5 h-5 rounded-full bg-red-600 text-white font-bold text-xs inline-flex items-center justify-center">1</span>
+            <span class="font-bold text-gray-900">半导体芯片</span>
+            <span class="text-gray-600">（今日20家涨停，20余只芯片ETF涨停，存储芯片净流入204亿）</span>
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap inline-block tag-blue">龙头带队·低位主升启动</span>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-lg px-3.5 py-2.5 flex flex-wrap items-center gap-2 text-xs sm:text-sm">
+            <span class="w-5 h-5 rounded-full bg-red-600 text-white font-bold text-xs inline-flex items-center justify-center">2</span>
+            <span class="font-bold text-gray-900">AI算力硬件（PCB覆铜板 / 光通信）</span>
+            <span class="text-gray-600">（金安国纪6天3板打出高度，沪电股份涨停，易中天集体大涨超10%）</span>
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap inline-block tag-blue">龙头带队·中位接力加速</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 核心个股拆解 -->
+    <section id="sec-step4" class="section-card p-5 sm:p-6">
+      <div class="flex items-center justify-between flex-wrap gap-2 mb-4">
+        <div class="flex items-center gap-2.5">
+          <span class="num-badge">4</span>
+          <h2 class="text-base sm:text-lg font-bold text-gray-900">核心个股拆解</h2>
+        </div>
+        <span class="px-2.5 py-1 rounded-full bg-gray-100 text-gray-500 text-xs font-medium">K线核验：启动点 / 加速段 / 分歧点 / 承接验证</span>
+      </div>
+
+      <!-- Stacked Stock Cards (Exact 4-Column Horizontal Layout per Stock as in Screenshots 4,5,6) -->
+      <div class="space-y-3.5" id="stock-cards-container">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Common Pattern Callout Bar -->
+      <div class="callout-amber px-4 py-3.5 mt-4 text-xs sm:text-sm text-gray-800 leading-relaxed">
+        <strong>共性模板提炼：</strong>前期超跌筹码出清 / 横盘抗跌 → 三季报业绩暴增或大额回购催化首板放量启动（或20cm机构大单封板） → 缩量锁筹或良性换手N字加速 → 分歧日（外资兑现或断板震荡）不破5日均线且获内资机构/游资快速承接收回者续命。<strong>选股口诀：</strong>先看题材梯队（半导体+AI算力龙头带队），再看筹码（机构净买缩量锁筹优于纯投机顶一字），分歧日看承接定去留。
+      </div>
+
+      <div class="text-center text-xs text-gray-400 mt-4">
+        所有公司展示都是市场过去事实，不做任何推荐
+      </div>
+    </section>
+
+    <!-- 5. 明日策略 + 交易行为复盘表 -->
+    <section id="sec-step5" class="section-card p-5 sm:p-6 space-y-5">
+      <div>
+        <div class="flex items-center justify-between mb-3.5">
+          <div class="flex items-center gap-2.5">
+            <span class="num-badge">5</span>
+            <h2 class="text-base sm:text-lg font-bold text-gray-900">明日策略</h2>
+          </div>
+          <span class="px-2.5 py-1 rounded-full bg-gray-100 text-gray-500 text-xs font-medium">最终作战三问</span>
+        </div>
+
+        <!-- Solid Orange/Amber Strategy Card (Matches Screenshot 7) -->
+        <div class="strategy-banner p-5 space-y-3 shadow-sm">
+          <div class="text-xs sm:text-sm leading-relaxed">
+            <strong>① 做不做：</strong>做，主动进攻但忌追高潮：两市放量3343亿重返2万亿确认增量进场，但单日暴涨后明早必有获利兑现，拒绝竞价无脑顶后排，等早盘分歧回踩做前排晋级确认
+          </div>
+          <div class="text-xs sm:text-sm leading-relaxed">
+            <strong>② 看哪个方向：</strong>半导体芯片（设备 / 存储芯片 / 大基金）为主，AI算力硬件（PCB覆铜板 / 光通信）为辅
+          </div>
+          <div class="text-xs sm:text-sm leading-relaxed">
+            <strong>③ 具体盯谁：</strong>拓荆科技(688072)、长鑫科技(688825)、华峰测控(688200)、江丰电子(300666)、金安国纪(002636)、闽发铝业(002578) —— 并以最高板闽发铝业(3进4)与金安国纪开盘强弱作全市场短线情绪信号
+          </div>
+        </div>
+      </div>
+
+      <!-- Optional Interactive Self-Trade Review Sub-Block -->
+      <div class="pt-4 border-t border-gray-200">
+        <div class="flex items-center justify-between flex-wrap gap-2 mb-3">
+          <h3 class="text-xs sm:text-sm font-bold text-gray-800">附：个人交易行为复盘表（只改自己的问题 · 可随时录入今日交割）</h3>
+          <button id="toggle-trade-form" class="text-xs font-semibold text-blue-600 hover:text-blue-800 no-print">
+            + 录入今日实盘交易
+          </button>
+        </div>
+
+        <form id="trade-form" class="hidden grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-2.5 mb-3 bg-gray-50 p-3.5 rounded-lg border border-gray-200 no-print">
+          <input type="text" id="t-stock" placeholder="股票名称/代码" required class="bg-white border border-gray-300 rounded px-2.5 py-1.5 text-xs focus:outline-none focus:border-blue-600" />
+          <input type="text" id="t-pos" placeholder="买点K线位置" required class="bg-white border border-gray-300 rounded px-2.5 py-1.5 text-xs focus:outline-none focus:border-blue-600" />
+          <input type="text" id="t-buy-reason" placeholder="买入理由" required class="bg-white border border-gray-300 rounded px-2.5 py-1.5 text-xs focus:outline-none focus:border-blue-600" />
+          <select id="t-sys" class="bg-white border border-gray-300 rounded px-2.5 py-1.5 text-xs focus:outline-none focus:border-blue-600">
+            <option value="符合系统 (模式内)">✅ 符合系统 (模式内)</option>
+            <option value="偏离系统 (随手单)">⚠️ 偏离系统 (随手单)</option>
+            <option value="违背系统 (追高/扛单)">❌ 违背系统 (追高/扛单)</option>
+          </select>
+          <input type="text" id="t-sell-reason" placeholder="卖出原因/持仓状态" required class="bg-white border border-gray-300 rounded px-2.5 py-1.5 text-xs focus:outline-none focus:border-blue-600" />
+          <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded px-3 py-1.5 text-xs transition">
+            添加复盘记录
+          </button>
+        </form>
+
+        <div class="overflow-x-auto border border-gray-200 rounded-lg">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="bg-gray-50 text-gray-500 border-b border-gray-200">
+                <th class="py-2 px-3 font-semibold">股票</th>
+                <th class="py-2 px-3 font-semibold">买点K线位置</th>
+                <th class="py-2 px-3 font-semibold">买入理由</th>
+                <th class="py-2 px-3 font-semibold">是否符合系统</th>
+                <th class="py-2 px-3 font-semibold">卖出原因</th>
+                <th class="py-2 px-3 font-semibold">错误点与可优化规则</th>
+                <th class="py-2 px-3 font-semibold text-right no-print">操作</th>
+              </tr>
+            </thead>
+            <tbody id="trade-table-body" class="divide-y divide-gray-100">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const SECTOR_ROWS = [
+      {
+        id: 'semi',
+        tagStyle: 'tag-red',
+        name: '半导体芯片',
+        count: 20,
+        stocks: '正帆科技3天2板(20cm)、拓荆科技1板(20cm)、江丰电子1板(20cm)、中科飞测1板(20cm)、华峰测控1板(20cm)、富创精密1板、思瑞浦1板、芯源微1板、京仪装备1板、强一股份1板、托伦斯1板、北方华创1板、长电科技1板、通富微电1板、雅克科技1板、瑞芯微1板、金海通1板、有研新材1板、新洁能1板、先导基电1板',
+        structure: '龙头带队+扩散',
+        structStyle: 'tag-blue'
+      },
+      {
+        id: 'gold',
+        tagStyle: 'tag-amber',
+        name: '贵金属',
+        count: 9,
+        stocks: '晓程科技1板(20cm)、山东黄金1板、山金国际1板、湖南黄金1板、招金黄金1板、西部黄金1板、四川黄金1板、赤峰黄金1板、湖南白银1板',
+        structure: '有梯队·板块齐涨',
+        structStyle: 'tag-blue'
+      },
+      {
+        id: 'auto',
+        tagStyle: 'tag-gray',
+        name: '汽车零部',
+        count: 7,
+        stocks: '三联锻造1板、浙江黎明1板、均胜电子1板、中马传动1板、飞龙股份1板、长源东谷1板、海安集团1板',
+        structure: '低位补涨',
+        structStyle: 'tag-gray'
+      },
+      {
+        id: 'ai',
+        tagStyle: 'tag-red',
+        name: '元件 / AI算力',
+        count: 6,
+        stocks: '金安国纪6天3板、宝明科技2板、沪电股份1板、兴森科技1板、协和电子(触板)、云南锗业1板',
+        structure: '龙头带队+扩散',
+        structStyle: 'tag-blue'
+      },
+      {
+        id: 'pharma',
+        tagStyle: 'tag-gray',
+        name: '医疗 / 创新药',
+        count: 5,
+        stocks: '桂林三金5天4板、药明康德1板、凯莱英1板、昭衍新药1板、金陵药业1板',
+        structure: '中位接力+修复',
+        structStyle: 'tag-amber'
+      },
+      {
+        id: 'other',
+        tagStyle: 'tag-gray',
+        name: '专用设备 / 光伏',
+        count: 6,
+        stocks: '闽发铝业3板(8天4板)、凯迪股份6天3板、冰山冷热5天3板、永臻股份1板、开勒股份1板(20cm)、首航新能1板(20cm)',
+        structure: '中位接力',
+        structStyle: 'tag-amber'
+      },
+      {
+        id: 'other',
+        tagStyle: 'tag-gray',
+        name: '文化传媒',
+        count: 4,
+        stocks: '龙版传媒3板、大晟文化3板、浙文影业3板、中信出版1板(20cm)、引力传媒1板',
+        structure: '高标抱团',
+        structStyle: 'tag-amber'
+      },
+      {
+        id: 'other',
+        tagStyle: 'tag-gray',
+        name: '化工 / 新材料',
+        count: 4,
+        stocks: '高争民爆3板、扬子新材4天3板、鲁阳节能4天3板、马钢股份2板',
+        structure: '零散',
+        structStyle: 'tag-gray'
+      }
+    ];
+
+    const CORE_STOCKS = [
+      {
+        name: '拓荆科技',
+        info: '688072 · 半导体设备 · 20cm首板',
+        badge1: '主线龙头',
+        badge1Style: 'tag-red',
+        badge2: '缩量锁筹',
+        badge2Style: 'tag-blue',
+        s1: '2026-11-04 午后大涨20.0%封板，换手率仅3.79%（主力净流入占比9.73%） → 先进制程设备订单延长+机构大单主买驱动',
+        s2: '2026-11-04 午后随科创芯片指数直线拉升封死20cm涨停（缩量锁筹，场内惜售明显）',
+        s3: '盘中北向资金逢高净卖出2.71亿元形成分歧，但未开板，筹码被内资机构悉数锁定',
+        s4: '盘后龙虎榜证实机构席位狂买5.81亿元（全市场机构净买入第1），翻倍承接外资抛压，待明日验证1进2溢价'
+      },
+      {
+        name: '长鑫科技',
+        info: '688825 · 存储芯片 · 容量中军(+13.63%)',
+        badge1: '容量核心',
+        badge1Style: 'tag-red',
+        badge2: '主力抢筹30亿',
+        badge2Style: 'tag-amber',
+        s1: '2026-11-04 放量大涨13.63%收于44.09元 → 三季报净利1320亿扭亏+董事长提议最高50亿破纪录回购驱动',
+        s2: '午后大资金连续大单扫货推升，全天主力资金净流入30.15亿元（位居全市场主力净流入第1）',
+        s3: '作为百亿级成交容量中军，盘中通过持续换手消化短线获利盘，尾盘收于日内高位',
+        s4: '30亿主力资金构筑强支撑，明日只要不跌破今日大阳线半分位，存储芯片主线即维持强势'
+      },
+      {
+        name: '江丰电子',
+        info: '300666 · 半导体材料 · 20cm首板',
+        badge1: '主线先锋',
+        badge1Style: 'tag-red',
+        badge2: '换手健康',
+        badge2Style: 'tag-gray',
+        s1: '2026-11-04 首板大涨20.0%，换手率11.06%（主力净流入占比10.02%） → 半导体靶材与存储高景气共振',
+        s2: '2026-11-04 放量换手封死20cm首板，筹码在拉升过程中完成充分交换',
+        s3: '龙虎榜显示机构席位逢高净卖出1.4亿元，盘中经历老机构兑现与新资金换手分歧',
+        s4: '北向资金净买入3519.76万元叠加活跃游资合力接盘封死涨停，抛压充分释放，待次日验证连板动能'
+      },
+      {
+        name: '金安国纪',
+        info: '002636 · 覆铜板/PCB · 6天3板',
+        badge1: '主线龙头',
+        badge1Style: 'tag-red',
+        badge2: '换手健康',
+        badge2Style: 'tag-gray',
+        s1: '10月底三季报净利同比增10倍率先放量启动，先于大盘走出独立上升趋势',
+        s2: '走出“涨停→断板换手→再涨停”的6天3板N字加速结构，今日早盘借AI PCB扩产消息率先上板',
+        s3: '前两日断板震荡期出现分歧换手，但缩量回踩均未跌破5日均线，确认为主力良性洗盘',
+        s4: '分歧次日快速拉升反包涨停，承接有力，是当前硬科技主线唯一兼具身位与业绩的空间标杆'
+      },
+      {
+        name: '闽发铝业',
+        info: '002578 · 光伏铝材 · 3连板(8天4板)',
+        badge1: '高位核心',
+        badge1Style: 'tag-amber',
+        badge2: '换手晋级',
+        badge2Style: 'tag-gray',
+        s1: '8天前首板启动试盘，回踩洗盘3天后于11-02再次涨停开启主升浪',
+        s2: '11-02首板 → 11-03二连板 → 11-04换手放量晋级3连板（+10.11%），卡位成为全场最高连板',
+        s3: '今日受旧周期6板高标（东方海洋、青岛食品）断板跌停潮冲击，盘中出现分歧换手',
+        s4: '盘中分歧后获资金快速承接回封，成为新周期3连板高度标杆，明日直面3进4破局检验'
+      },
+      {
+        name: '桂林三金',
+        info: '002275 · 化学制药 · 5天4板',
+        badge1: '高位核心',
+        badge1Style: 'tag-amber',
+        badge2: '换手健康',
+        badge2Style: 'tag-gray',
+        s1: '5天前底部放量首板启动，在大盘弱势期逆势走强',
+        s2: '5天内走出4个涨停板，今日于09:42快速拉升涨停（收盘17.38元），收盘封单7762.58万元',
+        s3: '今日盘中曾1次打开涨停释放分歧浮筹，同时中期曾经历1日断板换手洗盘',
+        s4: '开板后迅速回封锁死，带动午后创新药与医药板块全面回暖，待明日检验高标延续性'
+      }
+    ];
+
+    let tradeRecords = [
+      {
+        id: 1,
+        stock: '示例：拓荆科技(688072)',
+        pos: '午后13:30突破分时高点',
+        buyReason: '半导体主线与指数共振反转，20cm前排龙头',
+        sys: '符合系统 (模式内)',
+        sellReason: '今日新开仓锁仓，待明日1进2确认',
+        rule: '主线共振启动日果断上车前排；明日若高开缩量加速则锁仓，若放量滞涨则分批兑现'
+      }
+    ];
+
+    function renderSectors(filter = 'all') {
+      const tbody = document.getElementById('sector-table-body');
+      const list = filter === 'all' ? SECTOR_ROWS : SECTOR_ROWS.filter(r => r.id === filter);
+      tbody.innerHTML = list.map(r => `
+        <tr class="hover:bg-gray-50/80 transition">
+          <td class="py-3 px-3.5">
+            <span class="px-2.5 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap inline-block ${r.tagStyle}">${r.name}</span>
+          </td>
+          <td class="py-3 px-3 font-bold text-gray-900">${r.count}</td>
+          <td class="py-3 px-3.5 text-gray-800 leading-relaxed">${r.stocks}</td>
+          <td class="py-3 px-3.5">
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold whitespace-nowrap inline-block ${r.structStyle}">${r.structure}</span>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function renderStockCards() {
+      const container = document.getElementById('stock-cards-container');
+      container.innerHTML = CORE_STOCKS.map(s => `
+        <div class="sub-card p-4">
+          <div class="flex flex-wrap items-center gap-2 mb-3">
+            <span class="text-base font-extrabold text-gray-900">${s.name}</span>
+            <span class="text-xs text-gray-500">${s.info}</span>
+            <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold whitespace-nowrap inline-block ${s.badge1Style}">${s.badge1}</span>
+            <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold whitespace-nowrap inline-block ${s.badge2Style}">${s.badge2}</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <div class="inner-box p-3">
+              <div class="text-xs font-bold text-blue-700 mb-1">① 启动点</div>
+              <p class="text-xs text-gray-700 leading-relaxed">${s.s1}</p>
+            </div>
+            <div class="inner-box p-3">
+              <div class="text-xs font-bold text-blue-700 mb-1">② 加速段</div>
+              <p class="text-xs text-gray-700 leading-relaxed">${s.s2}</p>
+            </div>
+            <div class="inner-box p-3">
+              <div class="text-xs font-bold text-blue-700 mb-1">③ 分歧点</div>
+              <p class="text-xs text-gray-700 leading-relaxed">${s.s3}</p>
+            </div>
+            <div class="inner-box p-3">
+              <div class="text-xs font-bold text-blue-700 mb-1">④ 承接验证</div>
+              <p class="text-xs text-gray-700 leading-relaxed">${s.s4}</p>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderTrades() {
+      const tbody = document.getElementById('trade-table-body');
+      if (tradeRecords.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="py-4 text-center text-gray-400">暂无记录，点击右上角“+ 录入今日实盘交易”添加</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = tradeRecords.map(t => `
+        <tr>
+          <td class="py-2.5 px-3 font-bold text-gray-900">${t.stock}</td>
+          <td class="py-2.5 px-3 text-gray-700">${t.pos}</td>
+          <td class="py-2.5 px-3 text-gray-700">${t.buyReason}</td>
+          <td class="py-2.5 px-3">
+            <span class="px-2 py-0.5 rounded text-[11px] font-semibold ${
+              t.sys.includes('符合') ? 'bg-green-100 text-green-800' :
+              t.sys.includes('偏离') ? 'bg-amber-100 text-amber-800' : 'bg-red-100 text-red-800'
+            }">${t.sys}</span>
+          </td>
+          <td class="py-2.5 px-3 text-gray-700">${t.sellReason}</td>
+          <td class="py-2.5 px-3 text-gray-600">${t.rule}</td>
+          <td class="py-2.5 px-3 text-right no-print">
+            <button data-del-id="${t.id}" class="del-trade-btn text-gray-400 hover:text-red-600">删除</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-msg').textContent = msg;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 2500);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderSectors('all');
+      renderStockCards();
+      renderTrades();
+
+      // Sector Filter Click
+      document.getElementById('sector-filters').addEventListener('click', e => {
+        const btn = e.target.closest('.sector-pill');
+        if (!btn) return;
+        document.querySelectorAll('.sector-pill').forEach(b => {
+          b.className = 'sector-pill px-2.5 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition';
+        });
+        btn.className = 'sector-pill px-2.5 py-1 rounded-md text-xs font-semibold bg-blue-600 text-white transition';
+        renderSectors(btn.getAttribute('data-sector'));
+      });
+
+      // Toggle Trade Form
+      document.getElementById('toggle-trade-form').addEventListener('click', () => {
+        const form = document.getElementById('trade-form');
+        if (form.classList.contains('hidden')) {
+          form.classList.remove('hidden');
+          form.classList.add('grid');
+        } else {
+          form.classList.add('hidden');
+          form.classList.remove('grid');
+        }
+      });
+
+      // Add Trade Record
+      document.getElementById('trade-form').addEventListener('submit', e => {
+        e.preventDefault();
+        const stock = document.getElementById('t-stock').value.trim();
+        const pos = document.getElementById('t-pos').value.trim();
+        const buyReason = document.getElementById('t-buy-reason').value.trim();
+        const sys = document.getElementById('t-sys').value;
+        const sellReason = document.getElementById('t-sell-reason').value.trim();
+        if (!stock) return;
+
+        const rule = sys.includes('符合')
+          ? '模式内标准交易：紧盯次日竞价承接，按纪律执行去留'
+          : sys.includes('偏离')
+          ? '盘中临时起意单：次日冲高不板优先了结，收缩至核心主线'
+          : '违背系统纪律：严禁在退潮断板股上扛单，次日早盘需第一时间纠错';
+
+        tradeRecords.unshift({ id: Date.now(), stock, pos, buyReason, sys, sellReason, rule });
+        renderTrades();
+        e.target.reset();
+        showToast('已添加交易复盘记录');
+      });
+
+      // Delete Trade Record
+      document.getElementById('trade-table-body').addEventListener('click', e => {
+        const btn = e.target.closest('.del-trade-btn');
+        if (!btn) return;
+        const id = parseInt(btn.getAttribute('data-del-id'), 10);
+        tradeRecords = tradeRecords.filter(t => t.id !== id);
+        renderTrades();
+        showToast('已删除交易记录');
+      });
+
+      // Print / Export PDF
+      document.getElementById('btn-print').addEventListener('click', () => {
+        window.print();
+      });
+
+      // Copy Summary
+      document.getElementById('btn-copy-summary').addEventListener('click', () => {
+        const text = [
+          '【A股每日复盘报告 · 2026-11-04】',
+          '📈 明日基调：主动进攻（回暖共振转加速 · 买分歧勿追高潮）',
+          '1. 市场定调：上证 3686.17(+2.16%)、深成指 11335.69(+4.22%)、创业板指 2544.73(+6.40%)；两市成交2.04万亿（放量3343亿）。涨跌家数 4732/786/136，涨停121家/跌停11家，炸板率21.2%，最高板3连板（闽发铝业等6家）。',
+          '2. 主线结论：① 半导体芯片（20家涨停，龙头带队·低位强反转）；② AI算力/PCB（金安国纪6天3板，龙头带队·中位接力加速）。',
+          '3. 明日策略：重点盯拓荆科技、长鑫科技、华峰测控、江丰电子、金安国纪、闽发铝业。'
+        ].join('\n');
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+          showToast('复盘摘要已复制到剪贴板');
+        } catch (err) {
+          showToast('复制失败');
+        }
+        document.body.removeChild(ta);
+      });
+    });
+  </script>
+</body>
+</html>
